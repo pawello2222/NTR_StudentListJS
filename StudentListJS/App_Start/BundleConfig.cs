@@ -22,7 +22,10 @@ namespace StudentListJS
 
             bundles.Add( new StyleBundle( "~/Content/css" ).Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css" ) );
+                      "~/Content/Site.css" ) );
+
+            bundles.Add( new ScriptBundle( "~/bundles/studentsApp" )
+                    .IncludeDirectory( "~/Scripts/Students", "*.js" ) );
         }
     }
 }

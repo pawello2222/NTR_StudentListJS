@@ -1,0 +1,1 @@
+﻿var StudentsApp = angular.module('StudentsApp', []);
