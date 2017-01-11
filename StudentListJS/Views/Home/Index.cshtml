@@ -1,16 +1,38 @@
 ﻿<div ng-app="StudentsApp" ng-controller="StudentsController">
+    {{status}}
     <table class="table">
-        <tr>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>IndexNo</th>
-            <th>Group.Name</th>
-        </tr>
-        <tr ng-repeat="s in students">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Index No</th>
+                <th>Birth date</th>
+                <th>Birth place</th>
+                <th>Group</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr ng-repeat="s in students" ng-if="s.IDStudent > 0">
+            <td>{{s.IDStudent}}</td>
             <td>{{s.FirstName}}</td>
             <td>{{s.LastName}}</td>
             <td>{{s.IndexNo}}</td>
+            <td>{{s.BirthDate}}</td>
+            <td>{{s.BirthPlace}}</td>
             <td>{{s.Group.Name}}</td>
+            <td>
+                <input type="button" id="Edit" value="Edit" data-ng-click="editStudent(s.IDStudent)" />
+                <input type="button" id="Delete" value="Delete" data-ng-click="deleteStudent(s.IDStudent)" />
+            </td>
         </tr>
-     </table>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td>FirstName</td>
+            <td><input type="text" id="FieldFirstName" value="" ng-required="true" /></td>
+        </tr>
+    </table>
+
 </div>
