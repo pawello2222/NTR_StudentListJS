@@ -1,0 +1,21 @@
+﻿<div ng-app="StudentsApp" ng-controller="GroupsController">
+    {{status}}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr ng-repeat="g in groups" ng-if="s.IDGroup > 0">
+            <td>{{g.IDGroup}}</td>
+            <td>{{g.Name}}</td>
+            <td>
+                <input type="button" value="Edit" data-ng-click="editGroup(s.IDGroup)" />
+                <input type="button" value="Delete" data-ng-click="deleteGroup(s.IDGroup)" />
+            </td>
+        </tr>
+    </table>
+</div>
