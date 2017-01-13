@@ -10,9 +10,9 @@ namespace StudentListJS.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "StudentList";
 
-            return View( "StudentList" );
+            return View();
         }
     }
 }

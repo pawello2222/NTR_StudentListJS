@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div ng-app="studentListApp" ng-controller="appCtrl">
+    Status: {{status}}
+    
+    <div class="divList">
+        <p><b><i>Students</i></b></p>
+        <table class="table table-hover">
+            <tr>
+                <td><b>ID</b></td>
+                <td><b>First Name</b></td>
+                <td><b>Last Name</b></td>
+                <td><b>Index No</b></td>
+                <td><b>Birth Date</b></td>
+                <td><b>Birth Place</b></td>
+                <td><b>Action</b></td>
+            </tr>
+            <tr ng-repeat="student in students">
+                <td>
+                    {{student.IDStudent}}
+                </td>
+                <td>
+                    {{student.FirstName}}
+                </td>
+                <td>
+                    {{student.LastName}}
+                </td>
+                <td>
+                    {{student.IndexNo}}
+                </td>
+                <td>
+                    {{student.BirthPlace}}
+                </td>
+                <td>
+                    {{student.BirthPlace}}
+                </td>
+                <td>
+                    <span ng-click="editStudent(student)" class="btn btn-primary">Edit</span>
+                    <span ng-click="deleteStudent(student)" class="btn btn-danger">Delete</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <span ng-click="createStudent()" class="btn btn-default">
+        Create Student
+    </span>
+    <div ng-show="showDivDetails">
+        <p class="divHead"></p>
+        <table class="table">
+            <tr>
+                <td><b><i>{{Action}} Student</i></b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>ID</b></td>
+                <td>
+                    <input type="text" disabled="disabled" ng-model="studentID" />
+                </td>
+                <td><b>IndexNo</b></td>
+                <td>
+                    <input type="text" ng-model="studentIndexNo" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>FirstName</b></td>
+                <td>
+                    <input type="text" ng-model="studentFirstName" />
+                </td>
+                <td><b>LastName</b></td>
+                <td>
+                    <input type="text" ng-model="studentLastName" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>BirthPlace</b></td>
+                <td>
+                    <input type="text" ng-model="studentBirthPlace" />
+                </td>
+                <td></td>
+                <td>
+                    <input type="button" class="btn btn-default" value="Save" ng-click="saveStudent()" />
+                    <input type="button" class="btn btn-danger" value="Cancel" ng-click="Cancel()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

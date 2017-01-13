@@ -1,35 +1,35 @@
-﻿StudentsApp.factory('StudentsService', ['$http', function ($http) {
+﻿StudentsApp.factory('GroupsService', ['$http', function ($http) {
 
-    var urlBase = 'http://localhost:62461/api';
-    var StudentsService = {};
+    var urlBase = 'api';
+    var GroupsService = {};
 
-    StudentsService.getStudents = function () {
-        return $http.get(urlBase + '/Students');
+    GroupsService.getGroups = function () {
+        return $http.get(urlBase + '/Groups');
     };
 
-    StudentsService.createStudent = function (student) {
+    GroupsService.createGroup = function (group) {
         return $http({
             method: 'post',
-            data: student,
-            url: urlBase + '/Students'
+            data: group,
+            url: urlBase + '/Groups'
         });
     };
 
-    StudentsService.editStudent = function (ID, student) {
+    GroupsService.editGroup = function (ID, group) {
         return $http({
             method: 'put',
-            data: [ ID, student ],
-            url: urlBase + '/Students/' + ID
+            data: [ID, group],
+            url: urlBase + '/Groups/' + ID
         });
     };
 
-    StudentsService.deleteStudent = function (ID) {
+    GroupsService.deleteGroup = function (ID) {
         return $http({
             method: 'delete',
             data: ID,
-            url: urlBase + '/Students/' + ID
+            url: urlBase + '/Groups/' + ID
         });
     };
 
-    return StudentsService;
+    return GroupsService;
 }]);

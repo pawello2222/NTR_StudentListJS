@@ -1,6 +1,6 @@
 ﻿StudentsApp.factory('StudentsService', ['$http', function ($http) {
 
-    var urlBase = 'http://localhost:62461/api';
+    var urlBase = 'api';
     var StudentsService = {};
 
     StudentsService.getStudents = function () {

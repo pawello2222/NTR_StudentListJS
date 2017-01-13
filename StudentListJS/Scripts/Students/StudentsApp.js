@@ -1,1 +1,1 @@
-﻿var StudentsApp = angular.module('StudentsApp', []);
+﻿var StudentsApp = angular.module('mainApp', ['ngResource']);

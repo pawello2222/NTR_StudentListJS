@@ -1,71 +1,33 @@
-﻿StudentsApp.controller('StudentsController', function ($scope, StudentsService) {
+﻿StudentsApp.controller('GroupsController', function ($scope, GroupsService) {
 
-    getStudents();
+    getGroups();
 
-    function getStudents() {
-        StudentsService.getStudents()
-            .success(function (students) {
-                $scope.students = students;
+    function getGroups() {
+        GroupsService.getGroups()
+            .success(function (groups) {
+                $scope.groups = groups;
 
             })
             .error(function (error) {
-                $scope.status = 'Unable to load students: ' + error.message;
+                $scope.status = 'Unable to load groups: ' + error.message;
 
             });
     }
 
-    $scope.formStudentCreate = {};
+    $scope.formGroupCreate = {};
 
-    $scope.createStudent = function () {
-        $scope.nameRequired = '';
-        $scope.emailRequired = '';
-        $scope.passwordRequired = '';
-
-        if (!$scope.formStudentCreate.Name) {
-            $scope.nameRequired = 'Name Required';
-        }
-
-        if (!$scope.formStudentCreate.Email) {
-            $scope.emailRequired = 'Email Required';
-        }
-
-        if (!$scope.formStudentCreate.Password) {
-            $scope.passwordRequired = 'Password Required';
-        }
-
-        var student = {
-            MailID: $scope.mailid,
-            SubscribedDate: new Date()
-        }
-
-        var create = StudentsService.createStudent(student);
-        create.then(function (d) {
-            getStudents();
-        }, function (error) {
-            $scope.status = 'Unable to create student: ' + error.message;
-        })
+    $scope.createGroup = function () {
     };
 
-    $scope.editStudent = function (ID) {
-        var student = {
-            MailID: $scope.mailid,
-            SubscribedDate: new Date()
-        }
-
-        var edit = StudentsService.editStudent(ID, student);
-        edit.then(function (d) {
-            getStudents();
-        }, function (error) {
-            $scope.status = 'Unable to edit student: ' + error.message;
-        })
+    $scope.editGroup = function (ID) {
     };
 
-    $scope.deleteStudent = function (ID) {
-        var dlt = StudentsService.deleteStudent(ID);
+    $scope.deleteGroup = function (ID) {
+        var dlt = GroupsService.deleteGroup(ID);
         dlt.then(function (d) {
-            getStudents();
+            getGroups();
         }, function (error) {
-            $scope.status = 'Unable to delete student: ' + error.message;
+            $scope.status = 'Unable to delete group: ' + error.message;
         })
     };
 });

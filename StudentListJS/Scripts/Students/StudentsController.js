@@ -1,5 +1,10 @@
 ﻿StudentsApp.controller('StudentsController', function ($scope, StudentsService) {
 
+    $scope.changeView = function (view) {
+        var path = '/' + view;
+        $location.path(path);
+    }
+
     getStudents();
 
     function getStudents() {
