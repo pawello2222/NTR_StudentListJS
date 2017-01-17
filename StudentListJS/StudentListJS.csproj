@@ -289,8 +289,6 @@
     <Content Include="Scripts\App\services.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Groups\GroupsController.js" />
-    <Content Include="Scripts\Groups\GroupsService.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -1026,12 +1024,6 @@
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Students\services.js" />
-    <Content Include="Scripts\Students\StudentsApp.js" />
-    <Content Include="Scripts\Students\StudentsController.js" />
-    <Content Include="Scripts\Students\StudentsService.js" />
-    <Content Include="Scripts\Test\StudentsApp.js" />
-    <Content Include="Scripts\Test\StudentsController.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1044,16 +1036,11 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\StudentList.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Views\Home\StudentCreate.cshtml" />
-    <Content Include="Views\Home\GroupList.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\groups.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Home\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,1 +1,0 @@
-﻿var StudentsApp = angular.module('studentListApp', []);

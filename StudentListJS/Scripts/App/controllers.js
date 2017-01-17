@@ -6,7 +6,8 @@
     $scope.showGroupFormDiv = false;
 
     getStudents();
-    $scope.status = "test";
+    getGroups();
+    $scope.status = "";
 
     $scope.showStudentsTab = function () {
         $scope.showStudentListDiv = true;
@@ -111,4 +112,78 @@
 
     //---------------
 
+    function getGroups() {
+        var getData = groupService.getGroups();
+        getData.then(function (_groups) {
+            $scope.groups = _groups.data;
+        }, function () {
+            alert('Error getting all groups.');
+        });
+    }
+
+    $scope.createGroup = function () {
+        clearGroupFields();
+        $scope.Action = "Create";
+        $scope.showGroupFormDiv = true;
+    }
+
+    $scope.editGroup = function (group) {
+        var getData = groupService.getGroup(group.IDGroup);
+        getData.then(function (_group) {
+            $scope.group = _group.data;
+            $scope.groupID = group.IDGroup;
+            $scope.groupName = group.Name;
+            $scope.Action = "Update";
+            $scope.showGroupFormDiv = true;
+        }, function () {
+            alert('Error getting group.');
+        });
+    }
+
+    $scope.saveGroup = function () {
+        var Group = {
+            Name: $scope.groupName
+        };
+        var getGroupAction = $scope.Action;
+
+        if (getGroupAction == "Update") {
+            Group.IDGroup = $scope.groupID;
+            var getData = groupService.updateGroup(Group);
+            getData.then(function (msg) {
+                getGroups();
+                alert(msg.data);
+                $scope.showGroupFormDiv = false;
+            }, function () {
+                alert('Error updating group.');
+            });
+        } else {
+            var getData = groupService.createGroup(Group);
+            getData.then(function (msg) {
+                getGroups();
+                alert(msg.data);
+                $scope.showGroupFormDiv = false;
+            }, function () {
+                alert('Error creating group.');
+            });
+        }
+    }
+
+    $scope.deleteGroup = function (group) {
+        var getData = groupService.deleteGroup(group.IDGroup);
+        getData.then(function (msg) {
+            alert(msg.data);
+            getGroups();
+        }, function () {
+            alert('Error deleting group.');
+        });
+    }
+
+    function clearGroupFields() {
+        $scope.groupID = "";
+        $scope.groupName = "";
+    }
+
+    $scope.cancelGroupForm = function () {
+        $scope.showGroupFormDiv = false;
+    };
 };
