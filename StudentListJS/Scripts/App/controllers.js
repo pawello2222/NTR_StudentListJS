@@ -10,6 +10,7 @@
     $scope.status = "";
 
     $scope.showStudentsTab = function () {
+        getStudents();
         $scope.showStudentListDiv = true;
         $scope.showStudentFormDiv = false;
         $scope.showGroupListDiv = false;
@@ -17,6 +18,7 @@
     }
 
     $scope.showGroupsTab = function () {
+        getGroups();
         $scope.showStudentListDiv = false;
         $scope.showStudentFormDiv = false;
         $scope.showGroupListDiv = true;
@@ -124,6 +126,7 @@
     $scope.createGroup = function () {
         clearGroupFields();
         $scope.Action = "Create";
+        $scope.showGroupListDiv = false;
         $scope.showGroupFormDiv = true;
     }
 
@@ -134,6 +137,7 @@
             $scope.groupID = group.IDGroup;
             $scope.groupName = group.Name;
             $scope.Action = "Update";
+            $scope.showGroupListDiv = false;
             $scope.showGroupFormDiv = true;
         }, function () {
             alert('Error getting group.');
@@ -148,10 +152,11 @@
 
         if (getGroupAction == "Update") {
             Group.IDGroup = $scope.groupID;
-            var getData = groupService.updateGroup(Group);
+            var getData = groupService.updateGroup(Group.IDGroup, Group);
             getData.then(function (msg) {
                 getGroups();
                 alert(msg.data);
+                $scope.showGroupListDiv = true;
                 $scope.showGroupFormDiv = false;
             }, function () {
                 alert('Error updating group.');
@@ -161,6 +166,7 @@
             getData.then(function (msg) {
                 getGroups();
                 alert(msg.data);
+                $scope.showGroupListDiv = true;
                 $scope.showGroupFormDiv = false;
             }, function () {
                 alert('Error creating group.');
@@ -184,6 +190,7 @@
     }
 
     $scope.cancelGroupForm = function () {
+        $scope.showGroupListDiv = true;
         $scope.showGroupFormDiv = false;
     };
 };

@@ -64,7 +64,7 @@ var groupService = function ($http) {
     this.updateGroup = function (ID, group) {
         return $http({
             method: 'put',
-            data: [ID, group],
+            data: group,
             url: urlBase + '/Groups/' + ID
         });
     };

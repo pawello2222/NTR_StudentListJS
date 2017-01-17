@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using StudentListJS.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace StudentListJS.Controllers
 {
@@ -55,15 +56,17 @@ namespace StudentListJS.Controllers
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch ( DbUpdateConcurrencyException )
             {
-                if (!StudentExists(id))
+                if ( !StudentExists( id ) )
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw;
+                    var ctx = ( ( IObjectContextAdapter ) db ).ObjectContext;
+                    ctx.Refresh( RefreshMode.ClientWins, db.Students );
+                    ctx.SaveChanges();
                 }
             }
 
