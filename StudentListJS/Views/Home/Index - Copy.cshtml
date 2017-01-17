@@ -1,7 +1,12 @@
-﻿<div>
-    Status: {{status}}
+﻿@{
+    ViewBag.Title = "Home Page";
+}
 
-    <div ng-show="showStudentListDiv">
+
+<div ng-app="studentListApp" ng-controller="appCtrl">
+    Status: {{status}}
+    
+    <div class="divList">
         <p><b><i>Students</i></b></p>
         <table class="table table-hover">
             <tr>
@@ -38,38 +43,11 @@
                 </td>
             </tr>
         </table>
-
-        <span ng-click="createStudent()" class="btn btn-default">
-            Create Student
-        </span>
     </div>
-    <div ng-show="showGroupListDiv">
-        <p><b><i>Groups</i></b></p>
-        <table class="table table-hover">
-            <tr>
-                <td><b>ID</b></td>
-                <td><b>Name</b></td>
-                <td><b>Action</b></td>
-            </tr>
-            <tr ng-repeat="group in groups">
-                <td>
-                    {{group.IDStudent}}
-                </td>
-                <td>
-                    {{group.FirstName}}
-                </td>
-                <td>
-                    <span ng-click="editGroup(group)" class="btn btn-primary">Edit</span>
-                    <span ng-click="deleteGroup(group)" class="btn btn-danger">Delete</span>
-                </td>
-            </tr>
-        </table>
-
-        <span ng-click="createGroup()" class="btn btn-default">
-            Create Group
-        </span>
-    </div>
-    <div ng-show="showStudentFormDiv">
+    <span ng-click="createStudent()" class="btn btn-default">
+        Create Student
+    </span>
+    <div ng-show="showDivDetails">
         <p class="divHead"></p>
         <table class="table">
             <tr>
@@ -106,38 +84,7 @@
                 <td></td>
                 <td>
                     <input type="button" class="btn btn-default" value="Save" ng-click="saveStudent()" />
-                    <input type="button" class="btn btn-danger" value="Cancel" ng-click="cancelStudentForm()" />
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div ng-show="showGroupFormDiv">
-        <p class="divHead"></p>
-        <table class="table">
-            <tr>
-                <td><b><i>{{Action}} Group</i></b></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><b>ID</b></td>
-                <td>
-                    <input type="text" disabled="disabled" ng-model="groupID" />
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><b>Name</b></td>
-                <td>
-                    <input type="text" ng-model="groupName" />
-                </td>
-                <td></td>
-                <td>
-                    <input type="button" class="btn btn-default" value="Save" ng-click="saveGroup()" />
-                    <input type="button" class="btn btn-danger" value="Cancel" ng-click="cancelGroupForm()" />
+                    <input type="button" class="btn btn-danger" value="Cancel" ng-click="Cancel()" />
                 </td>
             </tr>
         </table>

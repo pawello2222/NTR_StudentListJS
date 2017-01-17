@@ -1,26 +1,44 @@
-﻿app.controller("appCtrl", function ($scope, appService) {
-    $scope.showDivDetails = false;
+﻿var appController = function ($scope, studentService, groupService) {
+
+    $scope.showStudentListDiv = true;
+    $scope.showStudentFormDiv = false;
+    $scope.showGroupListDiv = false;
+    $scope.showGroupFormDiv = false;
 
     getStudents();
-    $scope.status = "ASD";
+    $scope.status = "test";
+
+    $scope.showStudentsTab = function () {
+        $scope.showStudentListDiv = true;
+        $scope.showStudentFormDiv = false;
+        $scope.showGroupListDiv = false;
+        $scope.showGroupFormDiv = false;
+    }
+
+    $scope.showGroupsTab = function () {
+        $scope.showStudentListDiv = false;
+        $scope.showStudentFormDiv = false;
+        $scope.showGroupListDiv = true;
+        $scope.showGroupFormDiv = false;
+    }
 
     function getStudents() {
-        var getData = appService.getBooks();
+        var getData = studentService.getStudents();
         getData.then(function (_students) {
             $scope.students = _students.data;
         }, function () {
-            alert('Error in getting all student records');
+            alert('Error getting all students.');
         });
     }
 
     $scope.createStudent = function () {
-        clearFields();
+        clearStudentFields();
         $scope.Action = "Create";
-        $scope.showDivDetails = true;
+        $scope.showStudentFormDiv = true;
     }
 
     $scope.editStudent = function (student) {
-        var getData = appService.getStudent(student.IDStudent);
+        var getData = studentService.getStudent(student.IDStudent);
         getData.then(function (_student) {
             $scope.student = _student.data;
             $scope.studentID = student.IDStudent;
@@ -28,10 +46,11 @@
             $scope.studentFirstName = student.FirstName;
             $scope.studentLastName = student.LastName;
             $scope.studentBirthPlace = student.BirthPlace;
+            //group
             $scope.Action = "Update";
-            $scope.showDivDetails = true;
+            $scope.showStudentFormDiv = true;
         }, function () {
-            alert('Error in getting single student records');
+            alert('Error getting student.');
         });
     }
 
@@ -41,50 +60,55 @@
             LastName: $scope.studentLastName,
             IndexNo: $scope.studentIndexNo,
             BirthPlace: $scope.studentBirthPlace
+            //gorup, birthdate
         };
         var getStudentAction = $scope.Action;
 
         if (getStudentAction == "Update") {
             Student.IDStudent = $scope.studentID;
-            var getData = appService.updateStudent(Student);
+            var getData = studentService.updateStudent(Student);
             getData.then(function (msg) {
                 getStudents();
                 alert(msg.data);
-                $scope.showDivDetails = false;
+                $scope.showStudentFormDiv = false;
             }, function () {
-                alert('Error in updating student record');
+                alert('Error updating student.');
             });
         } else {
-            var getData = appService.createStudent(Student);
+            var getData = studentService.createStudent(Student);
             getData.then(function (msg) {
                 getStudents();
                 alert(msg.data);
-                $scope.showDivDetails = false;
+                $scope.showStudentFormDiv = false;
             }, function () {
-                alert('Error in creating student record');
+                alert('Error creating student.');
             });
         }
     }
 
     $scope.deleteStudent = function (student) {
-        var getData = appService.deleteStudent(student.IDStudent);
+        var getData = studentService.deleteStudent(student.IDStudent);
         getData.then(function (msg) {
             alert(msg.data);
             getStudents();
         }, function () {
-            alert('Error in deleting book record');
+            alert('Error deleting student.');
         });
     }
 
-    function clearFields() {
+    function clearStudentFields() {
         $scope.studentID = "";
         $scope.studentIndexNo = "";
         $scope.studentFirstName = "";
         $scope.studentLastName = "";
         $scope.studentBirthPlace = "";
+        //group, birthdate
     }
 
-    $scope.Cancel = function () {
-        $scope.showDivDetails = false;
+    $scope.cancelStudentForm = function () {
+        $scope.showStudentFormDiv = false;
     };
-});
+
+    //---------------
+
+};

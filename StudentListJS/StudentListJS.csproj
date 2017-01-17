@@ -1030,6 +1030,8 @@
     <Content Include="Scripts\Students\StudentsApp.js" />
     <Content Include="Scripts\Students\StudentsController.js" />
     <Content Include="Scripts\Students\StudentsService.js" />
+    <Content Include="Scripts\Test\StudentsApp.js" />
+    <Content Include="Scripts\Test\StudentsController.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1051,6 +1053,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\groups.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -24,11 +24,13 @@ namespace StudentListJS
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css" ) );
 
-            bundles.Add( new ScriptBundle( "~/bundles/angularJS" ).Include(
+            bundles.Add( new ScriptBundle( "~/bundles/angularjs" ).Include(
                      "~/Scripts/angular.js" ) );
-
+            
             bundles.Add( new ScriptBundle( "~/bundles/studentsApp" )
-                    .IncludeDirectory( "~/Scripts/App", "*.js" ) );
+                    .Include( "~/Scripts/App/services.js" )
+                    .Include( "~/Scripts/App/controllers.js" )
+                    .Include( "~/Scripts/App/modules.js" ) );
         }
     }
 }
