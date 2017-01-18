@@ -49,8 +49,18 @@ namespace StudentListJS.Controllers
             {
                 return BadRequest();
             }
+            
+            var original = db.Students.Find( student.IDStudent );
 
-            db.Entry(student).State = EntityState.Modified;
+            if ( original != null )
+            {
+                original.FirstName = student.FirstName;
+                original.LastName = student.LastName;
+                original.IndexNo = student.IndexNo;
+                original.BirthDate = student.BirthDate;
+                original.BirthPlace = student.BirthPlace;
+                original.IDGroup = student.IDGroup;
+            }
 
             try
             {
@@ -64,10 +74,12 @@ namespace StudentListJS.Controllers
                 }
                 else
                 {
-                    var ctx = ( ( IObjectContextAdapter ) db ).ObjectContext;
-                    ctx.Refresh( RefreshMode.ClientWins, db.Students );
-                    ctx.SaveChanges();
+                    throw;
                 }
+            }
+            catch ( DbUpdateException )
+            {
+                return Conflict();
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -81,9 +93,6 @@ namespace StudentListJS.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            student.IDGroup = student.Group.IDGroup;
-            student.Group = null;
 
             db.Students.Add(student);
 

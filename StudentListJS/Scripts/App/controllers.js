@@ -51,12 +51,14 @@
     }
 
     $scope.createStudent = function () {
+        getStudents();
         clearStudentFields();
         $scope.Action = "Create";
         $scope.showStudentFormDiv = true;
     }
 
     $scope.editStudent = function (student) {
+        getStudents();
         var getData = studentService.getStudent(student.IDStudent);
         getData.then(function (_student) {
             $scope.student = _student.data;
@@ -67,7 +69,7 @@
             $scope.studentBirthDate = student.BirthDate;
             $scope.studentBirthPlace = student.BirthPlace;
             $scope.studentGroup = student.Group;
-            $scope.Action = "Update";
+            $scope.Action = "Edit";
             $scope.showStudentFormDiv = true;
         }, function () {
             alert('Error getting student.');
@@ -81,13 +83,13 @@
             IndexNo: $scope.studentIndexNo,
             BirthDate: $scope.studentBirthDate,
             BirthPlace: $scope.studentBirthPlace,
-            Group: $scope.studentGroup
+            IDGroup: $scope.studentGroup.IDGroup
         };
         var getStudentAction = $scope.Action;
 
-        if (getStudentAction == "Update") {
+        if (getStudentAction == "Edit") {
             Student.IDStudent = $scope.studentID;
-            var getData = studentService.updateStudent(Student);
+            var getData = studentService.updateStudent(Student.IDStudent, Student);
             getData.then(function () {
                 getStudents();
                 $scope.showStudentFormDiv = false;
@@ -106,12 +108,15 @@
     }
 
     $scope.deleteStudent = function (student) {
-        var getData = studentService.deleteStudent(student.IDStudent);
-        getData.then(function () {
-            getStudents();
-        }, function () {
-            alert('Error deleting student.');
-        });
+        var delConfirm = confirm("Are you sure?");
+        if (delConfirm == true) {
+            var getData = studentService.deleteStudent(student.IDStudent);
+            getData.then(function () {
+                getStudents();
+            }, function () {
+                alert('Error deleting student.');
+            });
+        }
     }
 
     function clearStudentFields() {
@@ -140,6 +145,7 @@
     }
 
     $scope.createGroup = function () {
+        getGroups();
         clearGroupFields();
         $scope.Action = "Create";
         $scope.showGroupListDiv = false;
@@ -147,12 +153,13 @@
     }
 
     $scope.editGroup = function (group) {
+        getGroups();
         var getData = groupService.getGroup(group.IDGroup);
         getData.then(function (_group) {
             $scope.group = _group.data;
             $scope.groupID = group.IDGroup;
             $scope.groupName = group.Name;
-            $scope.Action = "Update";
+            $scope.Action = "Edit";
             $scope.showGroupListDiv = false;
             $scope.showGroupFormDiv = true;
         }, function () {
@@ -166,7 +173,7 @@
         };
         var getGroupAction = $scope.Action;
 
-        if (getGroupAction == "Update") {
+        if (getGroupAction == "Edit") {
             Group.IDGroup = $scope.groupID;
             var getData = groupService.updateGroup(Group.IDGroup, Group);
             getData.then(function () {
@@ -189,12 +196,15 @@
     }
 
     $scope.deleteGroup = function (group) {
-        var getData = groupService.deleteGroup(group.IDGroup);
-        getData.then(function () {
-            getGroups();
-        }, function () {
-            alert('Error deleting group.');
-        });
+        var delConfirm = confirm("Are you sure?"); 
+        if (delConfirm == true) {
+            var getData = groupService.deleteGroup(group.IDGroup);
+            getData.then(function () {
+                getGroups();
+            }, function () {
+                alert('Error deleting group.');
+            });
+        }
     }
 
     function clearGroupFields() {

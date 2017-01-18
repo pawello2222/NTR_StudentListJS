@@ -51,7 +51,12 @@ namespace StudentListJS.Controllers
                 return BadRequest();
             }
 
-            db.Entry(group).State = EntityState.Modified;
+            var original = db.Groups.Find( group.IDGroup );
+
+            if ( original != null )
+            {
+                original.Name = group.Name;
+            }
 
             try
             {
@@ -65,10 +70,12 @@ namespace StudentListJS.Controllers
                 }
                 else
                 {
-                    var ctx = ( ( IObjectContextAdapter ) db ).ObjectContext;
-                    ctx.Refresh( RefreshMode.ClientWins, db.Groups );
-                    ctx.SaveChanges();
+                    throw;
                 }
+            }
+            catch ( DbUpdateException )
+            {
+                return Conflict();
             }
 
             return StatusCode(HttpStatusCode.NoContent);
