@@ -24,7 +24,7 @@
     this.updateStudent = function (ID, student) {
         return $http({
             method: 'put',
-            data: [ID, student],
+            data: student,
             url: urlBase + '/Students/' + ID
         });
     };

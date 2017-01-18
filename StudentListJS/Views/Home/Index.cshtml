@@ -11,6 +11,7 @@
                 <td><b>Index No</b></td>
                 <td><b>Birth Date</b></td>
                 <td><b>Birth Place</b></td>
+                <td><b>Group</b></td>
                 <td><b>Action</b></td>
             </tr>
             <tr ng-repeat="student in students">
@@ -27,10 +28,13 @@
                     {{student.IndexNo}}
                 </td>
                 <td>
-                    {{student.BirthPlace}}
+                    {{student.BirthDate}}
                 </td>
                 <td>
                     {{student.BirthPlace}}
+                </td>
+                <td>
+                    {{student.Group.Name}}
                 </td>
                 <td>
                     <span ng-click="editStudent(student)" class="btn btn-primary">Edit</span>
@@ -99,9 +103,20 @@
                 </td>
             </tr>
             <tr>
+                <td><b>BirthDate</b></td>
+                <td>
+                    <input type="text" ng-model="studentBirthDate" />
+                </td>
                 <td><b>BirthPlace</b></td>
                 <td>
                     <input type="text" ng-model="studentBirthPlace" />
+                </td>
+            </tr>
+            <tr>
+                <td>Group</td>
+                <td>
+                    <select ng-model="studentGroup" ng-options="group.Name for group in groups track by group.IDGroup">
+                    </select> 
                 </td>
                 <td></td>
                 <td>
@@ -126,14 +141,15 @@
                 <td>
                     <input type="text" disabled="disabled" ng-model="groupID" />
                 </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
                 <td><b>Name</b></td>
                 <td>
                     <input type="text" ng-model="groupName" />
                 </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td>
                     <input type="button" class="btn btn-default" value="Save" ng-click="saveGroup()" />

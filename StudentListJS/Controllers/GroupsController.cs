@@ -84,7 +84,15 @@ namespace StudentListJS.Controllers
             }
 
             db.Groups.Add(group);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch ( DbUpdateException )
+            {
+                return Conflict();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = group.IDGroup }, group);
         }
@@ -100,7 +108,15 @@ namespace StudentListJS.Controllers
             }
 
             db.Groups.Remove(group);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch ( DbUpdateException )
+            {
+                return Conflict();
+            }
 
             return Ok(group);
         }

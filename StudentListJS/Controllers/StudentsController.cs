@@ -82,8 +82,19 @@ namespace StudentListJS.Controllers
                 return BadRequest(ModelState);
             }
 
+            student.IDGroup = student.Group.IDGroup;
+            student.Group = null;
+
             db.Students.Add(student);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch ( DbUpdateException )
+            {
+                return Conflict();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = student.IDStudent }, student);
         }
@@ -99,7 +110,15 @@ namespace StudentListJS.Controllers
             }
 
             db.Students.Remove(student);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch ( DbUpdateException )
+            {
+                return Conflict();
+            }
 
             return Ok(student);
         }

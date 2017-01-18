@@ -48,8 +48,9 @@
             $scope.studentIndexNo = student.IndexNo;
             $scope.studentFirstName = student.FirstName;
             $scope.studentLastName = student.LastName;
+            $scope.studentBirthDate = student.BirthDate;
             $scope.studentBirthPlace = student.BirthPlace;
-            //group
+            $scope.studentGroup = student.Group;
             $scope.Action = "Update";
             $scope.showStudentFormDiv = true;
         }, function () {
@@ -62,26 +63,25 @@
             FirstName: $scope.studentFirstName,
             LastName: $scope.studentLastName,
             IndexNo: $scope.studentIndexNo,
-            BirthPlace: $scope.studentBirthPlace
-            //gorup, birthdate
+            BirthDate: $scope.studentBirthDate,
+            BirthPlace: $scope.studentBirthPlace,
+            Group: $scope.studentGroup
         };
         var getStudentAction = $scope.Action;
 
         if (getStudentAction == "Update") {
             Student.IDStudent = $scope.studentID;
             var getData = studentService.updateStudent(Student);
-            getData.then(function (msg) {
+            getData.then(function () {
                 getStudents();
-                alert(msg.data);
                 $scope.showStudentFormDiv = false;
             }, function () {
                 alert('Error updating student.');
             });
         } else {
             var getData = studentService.createStudent(Student);
-            getData.then(function (msg) {
+            getData.then(function () {
                 getStudents();
-                alert(msg.data);
                 $scope.showStudentFormDiv = false;
             }, function () {
                 alert('Error creating student.');
@@ -91,8 +91,7 @@
 
     $scope.deleteStudent = function (student) {
         var getData = studentService.deleteStudent(student.IDStudent);
-        getData.then(function (msg) {
-            alert(msg.data);
+        getData.then(function () {
             getStudents();
         }, function () {
             alert('Error deleting student.');
@@ -104,8 +103,9 @@
         $scope.studentIndexNo = "";
         $scope.studentFirstName = "";
         $scope.studentLastName = "";
+        $scope.studentBirthDate = "";
         $scope.studentBirthPlace = "";
-        //group, birthdate
+        $scope.studentGroup = "";
     }
 
     $scope.cancelStudentForm = function () {
@@ -153,9 +153,8 @@
         if (getGroupAction == "Update") {
             Group.IDGroup = $scope.groupID;
             var getData = groupService.updateGroup(Group.IDGroup, Group);
-            getData.then(function (msg) {
+            getData.then(function () {
                 getGroups();
-                alert(msg.data);
                 $scope.showGroupListDiv = true;
                 $scope.showGroupFormDiv = false;
             }, function () {
@@ -163,9 +162,8 @@
             });
         } else {
             var getData = groupService.createGroup(Group);
-            getData.then(function (msg) {
+            getData.then(function () {
                 getGroups();
-                alert(msg.data);
                 $scope.showGroupListDiv = true;
                 $scope.showGroupFormDiv = false;
             }, function () {
@@ -176,8 +174,7 @@
 
     $scope.deleteGroup = function (group) {
         var getData = groupService.deleteGroup(group.IDGroup);
-        getData.then(function (msg) {
-            alert(msg.data);
+        getData.then(function () {
             getGroups();
         }, function () {
             alert('Error deleting group.');
