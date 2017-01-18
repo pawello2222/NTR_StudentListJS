@@ -43,13 +43,13 @@
             </tr>
         </table>
 
-        <button ng-disabled="currentPageStudents == 0" 
+        <button ng-disabled="currentPageStudents == 0"
                 ng-click="currentPageStudents=currentPageStudents-1"
                 class="btn btn-default">
             Previous
         </button>
         {{currentPageStudents+1}}/{{numberOfPagesStudents()}}
-        <button ng-disabled="currentPageStudents >= students.length/pageSizeStudents - 1" 
+        <button ng-disabled="currentPageStudents >= students.length/pageSizeStudents - 1"
                 ng-click="currentPageStudents=currentPageStudents+1"
                 class="btn btn-default">
             Next
@@ -58,7 +58,7 @@
         <div ng-click="createStudent()" class="btn btn-default">
             Create Student
         </div>
-</div>
+    </div>
     <div ng-show="showGroupListDiv">
         <p><b><i>Groups</i></b></p>
         <table class="table table-hover">

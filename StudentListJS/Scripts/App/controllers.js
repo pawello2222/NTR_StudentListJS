@@ -69,6 +69,7 @@
             $scope.studentBirthDate = student.BirthDate;
             $scope.studentBirthPlace = student.BirthPlace;
             $scope.studentGroup = student.Group;
+            $scope.studentStamp = student.Stamp;
             $scope.Action = "Edit";
             $scope.showStudentFormDiv = true;
         }, function () {
@@ -85,26 +86,39 @@
             BirthPlace: $scope.studentBirthPlace,
             IDGroup: $scope.studentGroup.IDGroup
         };
-        var getStudentAction = $scope.Action;
 
-        if (getStudentAction == "Edit") {
-            Student.IDStudent = $scope.studentID;
-            var getData = studentService.updateStudent(Student.IDStudent, Student);
-            getData.then(function () {
-                getStudents();
-                $scope.showStudentFormDiv = false;
-            }, function () {
-                alert('Error updating student.');
-            });
-        } else {
-            var getData = studentService.createStudent(Student);
-            getData.then(function () {
-                getStudents();
-                $scope.showStudentFormDiv = false;
-            }, function () {
-                alert('Error creating student.');
-            });
-        }
+        var getOldData = studentService.getStudent($scope.studentID);
+        getOldData.then(function (_oldStudent) {
+
+            var getStudentAction = $scope.Action;
+
+            if (getStudentAction == "Edit" && $scope.studentStamp != _oldStudent.data.Stamp) {
+                alert('Error updating student - record was modified.');
+                return;
+            }
+
+            if (getStudentAction == "Edit") {
+                Student.IDStudent = $scope.studentID;
+                var getData = studentService.updateStudent(Student.IDStudent, Student);
+                getData.then(function () {
+                    getStudents();
+                    $scope.showStudentFormDiv = false;
+                }, function () {
+                    alert('Error updating student.');
+                });
+            } else {
+                var getData = studentService.createStudent(Student);
+                getData.then(function () {
+                    getStudents();
+                    $scope.showStudentFormDiv = false;
+                }, function () {
+                    alert('Error creating student.');
+                });
+            }
+
+        }, function () {
+            alert('Error getting student.');
+        });
     }
 
     $scope.deleteStudent = function (student) {
@@ -130,6 +144,7 @@
     }
 
     $scope.cancelStudentForm = function () {
+        getStudents();
         $scope.showStudentFormDiv = false;
     };
 
@@ -159,6 +174,7 @@
             $scope.group = _group.data;
             $scope.groupID = group.IDGroup;
             $scope.groupName = group.Name;
+            $scope.groupStamp = group.Stamp;
             $scope.Action = "Edit";
             $scope.showGroupListDiv = false;
             $scope.showGroupFormDiv = true;
@@ -171,28 +187,40 @@
         var Group = {
             Name: $scope.groupName
         };
-        var getGroupAction = $scope.Action;
+        var getOldData = groupService.getGroup($scope.groupID);
+        getOldData.then(function (_oldGroup) {
+            
+            var getGroupAction = $scope.Action;
 
-        if (getGroupAction == "Edit") {
-            Group.IDGroup = $scope.groupID;
-            var getData = groupService.updateGroup(Group.IDGroup, Group);
-            getData.then(function () {
-                getGroups();
-                $scope.showGroupListDiv = true;
-                $scope.showGroupFormDiv = false;
-            }, function () {
-                alert('Error updating group.');
-            });
-        } else {
-            var getData = groupService.createGroup(Group);
-            getData.then(function () {
-                getGroups();
-                $scope.showGroupListDiv = true;
-                $scope.showGroupFormDiv = false;
-            }, function () {
-                alert('Error creating group.');
-            });
-        }
+            if (getGroupAction == "Edit" && $scope.groupStamp != _oldGroup.data.Stamp) {
+                alert('Error updating group - record was modified.');
+                return;
+            }
+
+            if (getGroupAction == "Edit") {
+                Group.IDGroup = $scope.groupID;
+                var getData = groupService.updateGroup(Group.IDGroup, Group);
+                getData.then(function () {
+                    getGroups();
+                    $scope.showGroupListDiv = true;
+                    $scope.showGroupFormDiv = false;
+                }, function () {
+                    alert('Error updating group.');
+                });
+            } else {
+                var getData = groupService.createGroup(Group);
+                getData.then(function () {
+                    getGroups();
+                    $scope.showGroupListDiv = true;
+                    $scope.showGroupFormDiv = false;
+                }, function () {
+                    alert('Error creating group.');
+                });
+            }
+
+        }, function () {
+            alert('Error getting group.');
+        });
     }
 
     $scope.deleteGroup = function (group) {
@@ -213,6 +241,7 @@
     }
 
     $scope.cancelGroupForm = function () {
+        getGroups();
         $scope.showGroupListDiv = true;
         $scope.showGroupFormDiv = false;
     };
