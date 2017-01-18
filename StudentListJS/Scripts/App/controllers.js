@@ -1,13 +1,25 @@
 ﻿var appController = function ($scope, studentService, groupService) {
+    
+    getStudents();
+    getGroups();
+    $scope.status = "";
 
     $scope.showStudentListDiv = true;
     $scope.showStudentFormDiv = false;
     $scope.showGroupListDiv = false;
     $scope.showGroupFormDiv = false;
 
-    getStudents();
-    getGroups();
-    $scope.status = "";
+    $scope.currentPageStudents = 0;
+    $scope.pageSizeStudents = 5;
+    $scope.numberOfPagesStudents = function () {
+        return Math.ceil($scope.students.length / $scope.pageSizeStudents);
+    };
+
+    $scope.currentPageGroups = 0;
+    $scope.pageSizeGroups = 5;
+    $scope.numberOfPagesGroups = function () {
+        return Math.ceil($scope.groups.length / $scope.pageSizeGroups);
+    };
 
     $scope.showStudentsTab = function () {
         getStudents();
@@ -15,7 +27,9 @@
         $scope.showStudentFormDiv = false;
         $scope.showGroupListDiv = false;
         $scope.showGroupFormDiv = false;
-    }
+
+        $scope.currentPageStudents = 0;
+     }
 
     $scope.showGroupsTab = function () {
         getGroups();
@@ -23,6 +37,8 @@
         $scope.showStudentFormDiv = false;
         $scope.showGroupListDiv = true;
         $scope.showGroupFormDiv = false;
+
+        $scope.currentPageGroups = 0;
     }
 
     function getStudents() {

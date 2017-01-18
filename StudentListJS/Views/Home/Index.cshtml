@@ -14,7 +14,7 @@
                 <td><b>Group</b></td>
                 <td><b>Action</b></td>
             </tr>
-            <tr ng-repeat="student in students">
+            <tr ng-repeat="student in students | startFrom:currentPageStudents*pageSizeStudents | limitTo:pageSizeStudents">
                 <td>
                     {{student.IDStudent}}
                 </td>
@@ -43,10 +43,22 @@
             </tr>
         </table>
 
-        <span ng-click="createStudent()" class="btn btn-default">
+        <button ng-disabled="currentPageStudents == 0" 
+                ng-click="currentPageStudents=currentPageStudents-1"
+                class="btn btn-default">
+            Previous
+        </button>
+        {{currentPageStudents+1}}/{{numberOfPagesStudents()}}
+        <button ng-disabled="currentPageStudents >= students.length/pageSizeStudents - 1" 
+                ng-click="currentPageStudents=currentPageStudents+1"
+                class="btn btn-default">
+            Next
+        </button>
+
+        <div ng-click="createStudent()" class="btn btn-default">
             Create Student
-        </span>
-    </div>
+        </div>
+</div>
     <div ng-show="showGroupListDiv">
         <p><b><i>Groups</i></b></p>
         <table class="table table-hover">
@@ -55,7 +67,7 @@
                 <td><b>Name</b></td>
                 <td><b>Action</b></td>
             </tr>
-            <tr ng-repeat="group in groups">
+            <tr ng-repeat="group in groups | startFrom:currentPageGroups*pageSizeGroups | limitTo:pageSizeGroups">
                 <td>
                     {{group.IDGroup}}
                 </td>
@@ -69,9 +81,21 @@
             </tr>
         </table>
 
-        <span ng-click="createGroup()" class="btn btn-default">
+        <button ng-disabled="currentPageGroups == 0"
+                ng-click="currentPageGroups=currentPageGroups-1"
+                class="btn btn-default">
+            Previous
+        </button>
+        {{currentPageGroups+1}}/{{numberOfPagesGroups()}}
+        <button ng-disabled="currentPageGroups >= groups.length/pageSizeGroups - 1"
+                ng-click="currentPageGroups=currentPageGroups+1"
+                class="btn btn-default">
+            Next
+        </button>
+
+        <div ng-click="createGroup()" class="btn btn-default">
             Create Group
-        </span>
+        </div>
     </div>
     <div ng-show="showStudentFormDiv">
         <p class="divHead"></p>
